@@ -19,7 +19,7 @@ class Song
   end
 
   def self.all
-    Song.all
+    self.name
   end
 
 end
