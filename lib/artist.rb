@@ -1,37 +1,38 @@
 class Artist
-  attr_accessor :name, :songs #setter/getter for name
-  @@all = [] #sets empty array to hold date
-  def initialize(name) #appon initilization, the instance takes in the name
-    @name = name
-    save #calls the save method
-    @songs = []
-  end
-  def save #save takes the instance and adds it to the array @@all
-    @@all << self
-  end
-  def self.all #the all method returns the filled array of all artists
+attr_accessor :name, :songs
+@@all = [] #stores all instances of Artist class
+def initialize(name)
+  @name = name
+  @songs = []
+  save #puts instances of songs into empty array?
+end
+def add_song(song)
+  @songs << song #Artist.songs reader? returns songs hopefully
+end
+def save
+  @@all << self #saves instances of Artist in @@all variable
+end
+  def self.all #class meth all returns all instances of Artist
     @@all
+    #binding.pry
   end
-  def add_song(song)
-     @songs << song
-  end
-  def self.find_or_create_by_name(name)   #class method uses find/create class
-                                          #methods to detect or create instances
+  def self.find_or_create_by_name(name) #find or create class meth to create instances?
     if self.find(name)
       self.find(name)
     else
       self.create(name)
     end
+    # binding.pry
   end
-  def self.find(name)     #class method detects instances from @@all class variable
-    self.all.detect { |artist| artist.name == name }
+  def self.find(name) #detects instancs from @@all class variable
+    self.all.detect {|artist| artist.name == name}
   end
-  def self.create(name)   #class method creates & stores instances vs initializing
-    artist = Artist.new(name)
-    artist.save
-    artist
+  def self.create(name)
+    artist = self.new(name)
   end
   def print_songs
-    @@all.each {|song| song.name}
+    @songs.each do |song|
+      puts song.name
+    end
   end
-end
+  end
